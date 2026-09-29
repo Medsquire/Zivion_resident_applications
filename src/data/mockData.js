@@ -1,0 +1,359 @@
+// Mock Data for GateShield Apartment Security & Management System
+
+export const APARTMENT_INFO = {
+  name: "Royal Heights Horizon",
+  address: "Sector 62, Hightech Enclave, Metro Zone",
+  totalFlats: 140,
+  totalTowers: 3, // Blocks A, B, C
+  activeGuardsOnDuty: 4,
+  gates: ["Gate 1 (Main Entrance)", "Gate 2 (Service/Delivery)", "Gate 3 (Resident South)"]
+};
+
+export const FLATS_DIRECTORY = [
+  {
+    flatNo: "A-402",
+    tower: "Tower A",
+    floor: 4,
+    ownerName: "Rajesh Sharma",
+    phone: "+91 98765 43210",
+    familyMembers: 4,
+    intercom: "10402",
+    status: "Occupied",
+    vehicles: [
+      { plate: "MH 12 AB 4590", type: "Car (SUV)", slot: "A-402 (B1)" },
+      { plate: "MH 12 CD 1289", type: "Bike", slot: "A-402 (B2)" }
+    ]
+  },
+  {
+    flatNo: "A-101",
+    tower: "Tower A",
+    floor: 1,
+    ownerName: "Priya Sundaram",
+    phone: "+91 98112 34567",
+    familyMembers: 2,
+    intercom: "10101",
+    status: "Occupied",
+    vehicles: [
+      { plate: "MH 12 EF 9988", type: "Car (Sedan)", slot: "A-101 (B1)" }
+    ]
+  },
+  {
+    flatNo: "B-202",
+    tower: "Tower B",
+    floor: 2,
+    ownerName: "Amitabh Deshmukh",
+    phone: "+91 97654 12345",
+    familyMembers: 3,
+    intercom: "20202",
+    status: "Occupied",
+    vehicles: [
+      { plate: "MH 14 XY 3311", type: "Car (EV)", slot: "B-202 (B1)" }
+    ]
+  },
+  {
+    flatNo: "B-301",
+    tower: "Tower B",
+    floor: 3,
+    ownerName: "Siddharth Rao",
+    phone: "+91 99887 76655",
+    familyMembers: 1,
+    intercom: "20301",
+    status: "Occupied",
+    vehicles: []
+  },
+  {
+    flatNo: "C-104",
+    tower: "Tower C",
+    floor: 1,
+    ownerName: "Neha & Alok Kapoor",
+    phone: "+91 94220 88990",
+    familyMembers: 5,
+    intercom: "30104",
+    status: "Occupied",
+    vehicles: [
+      { plate: "MH 12 KL 7766", type: "Car (SUV)", slot: "C-104 (B1)" },
+      { plate: "MH 12 MN 5544", type: "Scooter", slot: "C-104 (B2)" }
+    ]
+  },
+  {
+    flatNo: "A-702",
+    tower: "Tower A",
+    floor: 7,
+    ownerName: "Vikramaditya Roy",
+    phone: "+91 91100 22334",
+    familyMembers: 2,
+    intercom: "40502",
+    status: "Occupied",
+    vehicles: [
+      { plate: "MH 12 ZZ 1100", type: "Car (Sedan)", slot: "A-702 (B1)" }
+    ]
+  }
+];
+
+export const INITIAL_VISITOR_REQUESTS = [
+  {
+    id: "VIS-9021",
+    visitorName: "Rohan Kulkarni",
+    category: "Delivery", // Delivery, Guest, Daily Help, Cab, Service
+    company: "Amazon Prime",
+    phone: "+91 98234 11223",
+    flatNo: "A-402",
+    ownerName: "Rajesh Sharma",
+    gate: "Gate 2 (Service/Delivery)",
+    vehicleNo: "MH 12 EV 4012 (Delivery Scooter)",
+    photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200",
+    entryTime: "10:42 AM",
+    date: "Today",
+    status: "PENDING", // PENDING, APPROVED, LEAVE_AT_GATE, DENIED, CHECKED_OUT
+    purpose: "Package Delivery - Box #4092",
+    requestedByGuard: "Ramesh Singh (Gate 1)",
+    notes: "Waiting at Main Gate for Owner Approval"
+  },
+  {
+    id: "VIS-9020",
+    visitorName: "Sanjay Gupta",
+    category: "Guest",
+    company: "Personal Guest",
+    phone: "+91 99001 55443",
+    flatNo: "A-402",
+    ownerName: "Rajesh Sharma",
+    gate: "Gate 1 (Main Entrance)",
+    vehicleNo: "MH 12 GH 9901",
+    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200",
+    entryTime: "10:15 AM",
+    date: "Today",
+    status: "APPROVED",
+    purpose: "Family Visit & Tea",
+    requestedByGuard: "Ramesh Singh (Gate 1)",
+    notes: "Approved by Rajesh Sharma at 10:17 AM"
+  },
+  {
+    id: "VIS-9018",
+    visitorName: "Sunita Bai",
+    category: "Daily Help",
+    company: "Housekeeping",
+    phone: "+91 97300 22110",
+    flatNo: "B-202",
+    ownerName: "Amitabh Deshmukh",
+    gate: "Gate 1 (Main Entrance)",
+    vehicleNo: "N/A",
+    photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200",
+    entryTime: "08:30 AM",
+    date: "Today",
+    status: "APPROVED",
+    purpose: "Morning House Cleaning & Cooking",
+    requestedByGuard: "Vikram Sharma (Gate 2)",
+    notes: "Passcode Verified #5501"
+  },
+  {
+    id: "VIS-9015",
+    visitorName: "Dunzo Delivery Agent",
+    category: "Delivery",
+    company: "Dunzo",
+    phone: "+91 91234 88776",
+    flatNo: "C-104",
+    ownerName: "Neha & Alok Kapoor",
+    gate: "Gate 2 (Service/Delivery)",
+    vehicleNo: "MH 12 DX 7711",
+    photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200",
+    entryTime: "09:05 AM",
+    date: "Today",
+    status: "LEAVE_AT_GATE",
+    purpose: "Grocery Box Drop-off",
+    requestedByGuard: "Vikram Sharma (Gate 2)",
+    notes: "Instructed by owner: Leave package at Security Shelf B"
+  },
+  {
+    id: "VIS-9011",
+    visitorName: "Unknown Solicitor / Vendor",
+    category: "Service",
+    company: "Direct Sales",
+    phone: "+91 90000 11111",
+    flatNo: "B-301",
+    ownerName: "Siddharth Rao",
+    gate: "Gate 1 (Main Entrance)",
+    vehicleNo: "N/A",
+    photo: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&q=80&w=200",
+    entryTime: "09:20 AM",
+    date: "Today",
+    status: "DENIED",
+    purpose: "Water purifier promotion",
+    requestedByGuard: "Ramesh Singh (Gate 1)",
+    notes: "Denied by Siddharth Rao: No unannounced marketing allowed"
+  },
+  {
+    id: "VIS-9004",
+    visitorName: "Swiggy Rider (Aman)",
+    category: "Delivery",
+    company: "Swiggy Food",
+    phone: "+91 98877 66554",
+    flatNo: "A-402",
+    ownerName: "Rajesh Sharma",
+    gate: "Gate 2 (Service/Delivery)",
+    vehicleNo: "MH 12 SW 1234",
+    photo: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=200",
+    entryTime: "Yesterday 08:45 PM",
+    date: "Yesterday",
+    status: "CHECKED_OUT",
+    purpose: "Dinner Parcel",
+    requestedByGuard: "Vikram Sharma (Gate 2)",
+    notes: "Checked Out at 08:58 PM"
+  }
+];
+
+export const PRE_APPROVED_PASSES = [
+  {
+    id: "PASS-108",
+    guestName: "Kavita Sharma (Sister)",
+    flatNo: "A-402",
+    category: "Guest",
+    passCode: "849 201",
+    validDate: "Today (Valid until 11:59 PM)",
+    status: "ACTIVE",
+    expectedVeh: "MH 12 AB 9988",
+    qrUrl: "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PASS-849201-A402"
+  },
+  {
+    id: "PASS-109",
+    guestName: "Urban Company AC Service",
+    flatNo: "A-402",
+    category: "Service",
+    passCode: "312 905",
+    validDate: "Tomorrow 10:00 AM",
+    status: "SCHEDULED",
+    expectedVeh: "Service Van",
+    qrUrl: "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PASS-312905-A402"
+  }
+];
+
+export const GUARDS_DIRECTORY = [
+  {
+    id: "GD-01",
+    name: "Ramesh Singh",
+    role: "Senior Gate Commander",
+    gate: "Gate 1 (Main Entrance)",
+    phone: "+91 98700 11223",
+    shift: "Day Shift (08:00 AM - 08:00 PM)",
+    status: "ON_DUTY",
+    badgeNo: "GS-CMD-01",
+    photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "GD-02",
+    name: "Vikram Sharma",
+    role: "Service Gate Inspector",
+    gate: "Gate 2 (Service & Delivery)",
+    phone: "+91 98700 44556",
+    shift: "Day Shift (08:00 AM - 08:00 PM)",
+    status: "ON_DUTY",
+    badgeNo: "GS-GRD-04",
+    photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "GD-03",
+    name: "Sunita Patil",
+    role: "Tower A & Lobby Patrol",
+    gate: "Tower A Lobby Desk",
+    phone: "+91 98700 77889",
+    shift: "Day Shift (08:00 AM - 08:00 PM)",
+    status: "ON_DUTY",
+    badgeNo: "GS-LOB-02",
+    photo: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=200"
+  },
+  {
+    id: "GD-04",
+    name: "Mahadev Jadhav",
+    role: "Night Security Supervisor",
+    gate: "Gate 1 (Main Entrance)",
+    phone: "+91 98700 99000",
+    shift: "Night Shift (08:00 PM - 08:00 AM)",
+    status: "OFF_DUTY",
+    badgeNo: "GS-NIGHT-01",
+    photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200"
+  }
+];
+
+export const COMMUNITY_NOTICES = [
+  {
+    id: "NOT-401",
+    title: "⚡ Scheduled Maintenance: Power Backup Testing",
+    category: "Maintenance",
+    date: "Today, 02:00 PM",
+    postedBy: "Apartment Admin (Office)",
+    content: "D.G. Set generator testing will occur today between 3 PM to 4 PM. Brief 2-minute power switchover may occur.",
+    target: "ALL_RESIDENTS"
+  },
+  {
+    id: "NOT-400",
+    title: "🚗 New Visitor Parking Slots Activated at Basement 2",
+    category: "Security & Parking",
+    date: "25 Sep 2026",
+    postedBy: "Chief Admin Officer",
+    content: "All visitor delivery Cabs & guest vehicles must park in B2-Yellow zone. Gate guards have updated bay assignment tablet.",
+    target: "ALL_RESIDENTS"
+  },
+  {
+    id: "NOT-398",
+    title: "🛡️ Guard Protocol: No Gate Pass Entry Without OTP",
+    category: "Security",
+    date: "22 Sep 2026",
+    postedBy: "Chief Admin Officer",
+    content: "All non-resident daily workers must scan digital gate pass or get resident approval on the app prior to entering towers.",
+    target: "GUARDS_ONLY"
+  }
+];
+
+export const VEHICLES_LOG = [
+  {
+    id: "VEH-101",
+    plate: "MH 12 AB 4590",
+    flatNo: "A-402",
+    type: "Resident Car (SUV)",
+    ownerName: "Rajesh Sharma",
+    entryTime: "08:15 AM",
+    status: "INSIDE",
+    slot: "A-402 (B1)"
+  },
+  {
+    id: "VEH-102",
+    plate: "MH 12 EV 4012",
+    flatNo: "A-402",
+    type: "Delivery Bike",
+    ownerName: "Amazon Prime (Rohan)",
+    entryTime: "10:42 AM",
+    status: "AT_GATE_CHECK",
+    slot: "Visitor Bay V-04"
+  },
+  {
+    id: "VEH-103",
+    plate: "MH 14 XY 3311",
+    flatNo: "B-202",
+    type: "Resident Car (EV)",
+    ownerName: "Amitabh Deshmukh",
+    entryTime: "Yesterday 09:30 PM",
+    status: "INSIDE",
+    slot: "B-202 (B1)"
+  },
+  {
+    id: "VEH-104",
+    plate: "MH 04 KK 8812",
+    flatNo: "C-104",
+    type: "Guest Car (Creta)",
+    ownerName: "Guest of Alok Kapoor",
+    entryTime: "09:45 AM",
+    status: "INSIDE",
+    slot: "Visitor Bay V-12"
+  }
+];
+
+export const EMERGENCY_ALERTS = [
+  {
+    id: "SOS-501",
+    type: "LIFT_TRAPPED",
+    location: "Tower B - Lift 2",
+    triggeredBy: "Resident B-301 (Siddharth)",
+    time: "Yesterday 11:20 PM",
+    status: "RESOLVED",
+    actionTaken: "Guards & Elevator Engineer dispatched. Resident safely assisted within 6 mins."
+  }
+];

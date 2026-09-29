@@ -1,0 +1,94 @@
+import React, { useState } from 'react';
+import { ArrowRight, Building2, KeyRound, LockKeyhole, Mail, ShieldCheck } from 'lucide-react';
+import './LoginPage.css';
+
+export default function LoginPage({ onLogin, connectionError }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const submitLogin = async (event) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    try {
+      const success = await onLogin(email, password);
+      if (!success) {
+        setError('Email or password is incorrect.');
+        return;
+      }
+      setError('');
+    } catch (loginError) {
+      setError(loginError.message || 'Sign in failed. Check the server configuration and try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <main className="login-page">
+      <div className="login-layout login-layout-single">
+        <section className="login-panel" aria-labelledby="login-title">
+          <div className="login-brand">
+            <span className="login-brand-icon"><Building2 size={19} /></span>
+            <span>ZIVION</span>
+            <span className="login-brand-divider" />
+            <span className="login-community">Smarter Communities. Better Living.</span>
+          </div>
+
+          <div className="login-heading">
+            <p className="login-kicker">COMMUNITY PORTAL</p>
+            <h1 id="login-title">Welcome back</h1>
+            <p>Sign in to continue to your apartment workspace.</p>
+          </div>
+
+          <form className="login-form" onSubmit={submitLogin}>
+            {connectionError && <p className="login-error" role="status">Server: {connectionError}</p>}
+            <label htmlFor="login-email">Email address *</label>
+            <div className="login-input-wrap">
+              <Mail size={17} aria-hidden="true" />
+              <input
+                id="login-email"
+                type="email"
+                autoComplete="username"
+                placeholder="name@royalheights.com"
+                value={email}
+                onChange={event => setEmail(event.target.value)}
+                required
+              />
+            </div>
+
+            <div className="login-password-label">
+              <label htmlFor="login-password">Password *</label>
+              <span><KeyRound size={13} /> Use the configured seed password</span>
+            </div>
+            <div className="login-input-wrap">
+              <LockKeyhole size={17} aria-hidden="true" />
+              <input
+                id="login-password"
+                type="password"
+                autoComplete="current-password"
+                placeholder="Enter password"
+                value={password}
+                onChange={event => setPassword(event.target.value)}
+                required
+              />
+            </div>
+
+            {error && <p className="login-error" role="alert">{error}</p>}
+
+            <button className="login-submit" type="submit" disabled={isSubmitting}>
+              <span>{isSubmitting ? 'Signing in...' : 'Sign in'}</span>
+              <ArrowRight size={17} />
+            </button>
+          </form>
+
+          <div className="login-security-note">
+            <ShieldCheck size={16} />
+            <span>Access is assigned by account to your role, block, or flat.</span>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}
