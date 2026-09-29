@@ -1,28 +1,53 @@
 import React, { useState } from 'react';
 import { ArrowRight, Building2, KeyRound, LockKeyhole, Mail, ShieldCheck } from 'lucide-react';
+import { DEMO_USERS } from '../data/authUsers';
 import './LoginPage.css';
+
+const DEMO_PASSWORD_CANDIDATES = ['ZivionDemoPass2026', '12345678', 'password'];
 
 export default function LoginPage({ onLogin, connectionError }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [selectedDemoEmail, setSelectedDemoEmail] = useState(DEMO_USERS[0].email);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submitLogin = async (event) => {
-    event.preventDefault();
+  const loginWithCredentials = async (loginEmail, loginPassword) => {
     setIsSubmitting(true);
     try {
-      const success = await onLogin(email, password);
+      const success = await onLogin(loginEmail, loginPassword);
       if (!success) {
         setError('Email or password is incorrect.');
-        return;
+        return false;
       }
       setError('');
+      return true;
     } catch (loginError) {
       setError(loginError.message || 'Sign in failed. Check the server configuration and try again.');
+      return false;
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const submitLogin = async (event) => {
+    event.preventDefault();
+    await loginWithCredentials(email, password);
+  };
+
+  const handleDemoLogin = async (accountEmail) => {
+    const selectedAccount = DEMO_USERS.find(user => user.email === accountEmail) || DEMO_USERS[0];
+    setSelectedDemoEmail(selectedAccount.email);
+    setEmail(selectedAccount.email);
+
+    for (const candidate of DEMO_PASSWORD_CANDIDATES) {
+      setPassword(candidate);
+      const success = await loginWithCredentials(selectedAccount.email, candidate);
+      if (success) return;
+    }
+
+    setPassword('');
+    setError('Demo login is not available with the current seeded password. Use the regular sign-in form.');
   };
 
   return (
@@ -81,6 +106,28 @@ export default function LoginPage({ onLogin, connectionError }) {
               <span>{isSubmitting ? 'Signing in...' : 'Sign in'}</span>
               <ArrowRight size={17} />
             </button>
+
+            <div className="login-demo-group">
+              <label htmlFor="demo-login-select">Demo login</label>
+              <div className="login-demo-row">
+                <select
+                  id="demo-login-select"
+                  className="login-demo-select"
+                  value={selectedDemoEmail}
+                  onChange={event => {
+                    const nextValue = event.target.value;
+                    handleDemoLogin(nextValue);
+                  }}
+                  disabled={isSubmitting}
+                >
+                  {DEMO_USERS.map(user => (
+                    <option key={user.email} value={user.email}>
+                      {user.name} ({user.role === 'homeowner' ? user.flatNo : user.role === 'supervisor' ? `Block ${user.block}` : 'Admin'})
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
           </form>
 
           <div className="login-security-note">
