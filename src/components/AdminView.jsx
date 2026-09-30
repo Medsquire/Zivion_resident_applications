@@ -66,7 +66,7 @@ export default function AdminView({
   return (
     <div className="admin-view">
       {/* Admin Dashboard Metric Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 10, marginBottom: 14 }}>
+      <div className="admin-metrics" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 10, marginBottom: 14 }}>
         <div className="glass-card" style={{ background: 'linear-gradient(110deg, rgba(50, 130, 246, 0.22), rgba(34, 211, 238, 0.1))' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: 11, color: '#93c5fd', fontWeight: 600 }}>Total Visitors</span>
@@ -105,7 +105,7 @@ export default function AdminView({
       </div>
 
       {/* Admin Sub Navigation */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', background: 'rgba(255,255,255,0.04)', borderRadius: 12, padding: 3, marginBottom: 14, gap: 2 }}>
+      <div className="admin-tabs" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', background: 'rgba(255,255,255,0.04)', borderRadius: 12, padding: 3, marginBottom: 14, gap: 2 }}>
         <button
           className={`btn ${activeTab === 'overview' ? 'btn-primary' : 'btn-secondary'}`}
           onClick={() => setActiveTab('overview')}
@@ -242,6 +242,7 @@ export default function AdminView({
             />
           </div>
 
+          <div className="admin-flat-grid">
           {filteredFlats.map(f => (
             <div key={f.flatNo} className="glass-card">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -261,6 +262,7 @@ export default function AdminView({
               </div>
             </div>
           ))}
+          </div>
         </div>
       )}
 
@@ -278,6 +280,7 @@ export default function AdminView({
             </button>
           </div>
 
+          <div className="admin-guard-grid">
           {guards.map(g => (
             <div key={g.id} style={{
               display: 'flex',
@@ -302,6 +305,7 @@ export default function AdminView({
               </div>
             </div>
           ))}
+          </div>
         </div>
       )}
 

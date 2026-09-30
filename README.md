@@ -2,17 +2,17 @@
 
 ## Run Locally
 
-Configure the MongoDB and authentication environment variables described in [DATABASE_SETUP.md](DATABASE_SETUP.md), then start the full-stack development server:
+Start the frontend-only demo:
 
 ```sh
-npm run dev:vercel
+npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:5173](http://localhost:5173). Demo records are seeded from `src/data/data.json`; changes are saved in this browser's local storage.
 
 ## Demo Logins
 
-Use the configured `SEED_DEFAULT_PASSWORD` for newly created demo accounts. If it is not set in local development, the default password is `12345678`. Existing database accounts keep their current passwords when the seed runs again.
+Use `12345678` for every demo account. The login selector can sign in directly to any sample account.
 
 | Account | Login email |
 | --- | --- |

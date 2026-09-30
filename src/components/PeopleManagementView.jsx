@@ -90,6 +90,7 @@ export default function PeopleManagementView({
         ))}
       </div>
 
+      <div className="people-workspace">
       <form className="glass-card" onSubmit={handleSubmit}>
         <h3 style={{ display: 'flex', alignItems: 'center', gap: 7, color: '#fff', fontSize: 14, marginBottom: 12 }}>
           <Users size={16} color="#34d399" /> Add {activeType === 'household' ? 'house member' : activeType}
@@ -176,28 +177,31 @@ export default function PeopleManagementView({
         {feedback && <p role="status" style={{ color: '#34d399', fontSize: 11, marginTop: 10 }}>{feedback}</p>}
       </form>
 
-      <section>
+      <section className="people-records">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
           <h3 style={{ color: '#fff', fontSize: 13 }}>{heading}</h3>
           <span style={{ color: 'var(--text-muted)', fontSize: 10 }}>{people.length} records</span>
         </div>
-        {people.length === 0 ? (
-          <div className="glass-card" style={{ color: 'var(--text-muted)', fontSize: 11 }}>No {heading.toLowerCase()} have been added yet.</div>
-        ) : people.map(person => (
-          <article className="glass-card" key={person.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
-            <div style={{ minWidth: 0 }}>
-              <strong style={{ display: 'block', color: '#fff', fontSize: 12 }}>{person.name}</strong>
-              <span style={{ display: 'block', color: 'var(--text-muted)', fontSize: 10, marginTop: 3 }}>{person.phone}</span>
-              <span style={{ display: 'block', color: '#67e8f9', fontSize: 10, marginTop: 3 }}>
-                {person.flatNo
-                  ? `Flat ${person.flatNo.replace('-', ':')} · ${person.assignment}`
-                  : `${person.block ? `Block ${person.block}` : person.gate || 'Unassigned block'} · ${person.role || person.assignment || 'Staff'}`}
-              </span>
-            </div>
-            <Building2 size={16} color="#67e8f9" aria-hidden="true" />
-          </article>
-        ))}
+        <div className="people-record-grid">
+          {people.length === 0 ? (
+            <div className="glass-card" style={{ color: 'var(--text-muted)', fontSize: 11 }}>No {heading.toLowerCase()} have been added yet.</div>
+          ) : people.map(person => (
+            <article className="glass-card" key={person.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
+              <div style={{ minWidth: 0 }}>
+                <strong style={{ display: 'block', color: '#fff', fontSize: 12 }}>{person.name}</strong>
+                <span style={{ display: 'block', color: 'var(--text-muted)', fontSize: 10, marginTop: 3 }}>{person.phone}</span>
+                <span style={{ display: 'block', color: '#67e8f9', fontSize: 10, marginTop: 3 }}>
+                  {person.flatNo
+                    ? `Flat ${person.flatNo.replace('-', ':')} · ${person.assignment}`
+                    : `${person.block ? `Block ${person.block}` : person.gate || 'Unassigned block'} · ${person.role || person.assignment || 'Staff'}`}
+                </span>
+              </div>
+              <Building2 size={16} color="#67e8f9" aria-hidden="true" />
+            </article>
+          ))}
+        </div>
       </section>
+      </div>
     </section>
   );
 }

@@ -169,7 +169,7 @@ export default function App() {
 
   return (
     <div className="app-viewport">
-      <div className={`mobile-frame fullscreen-mode ${activeUser.role === 'homeowner' ? 'theme-light' : 'theme-dark'}`}>
+      <div className={`application-shell ${activeUser.role === 'homeowner' ? 'theme-light' : 'theme-dark'}`}>
         <main className="app-content">
           <div className="session-toolbar">
             <div>

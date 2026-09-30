@@ -373,37 +373,39 @@ export default function OwnerView({
               <p style={{ fontSize: 11, marginTop: 4 }}>New entry requests from the gate will appear here.</p>
             </div>
           ) : (
-            flatHistoryRequests.map(req => (
-              <div key={req.id} className="glass-card">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <img src={req.photo} alt={req.visitorName} className="visitor-avatar" style={{ width: 42, height: 42 }} />
+            <div className="visitor-history-grid">
+              {flatHistoryRequests.map(req => (
+                <article key={req.id} className="glass-card visitor-history-card">
+                  <div className="visitor-card-header">
+                    <div className="visitor-card-person">
+                      <img src={req.photo} alt={req.visitorName} className="visitor-avatar" />
+                      <div className="visitor-card-identity">
+                        <h4>{req.visitorName}</h4>
+                        <p>{req.company} <span aria-hidden="true">·</span> {req.category}</p>
+                      </div>
+                    </div>
+                    {req.status === 'APPROVED' && <span className="badge badge-approved">APPROVED</span>}
+                    {req.status === 'LEAVE_AT_GATE' && <span className="badge badge-leave">AT GATE</span>}
+                    {req.status === 'DENIED' && <span className="badge badge-denied">DENIED</span>}
+                    {req.status === 'CHECKED_OUT' && <span className="badge badge-checkout">EXITED</span>}
+                    {req.status === 'PENDING' && <span className="badge badge-pending">PENDING</span>}
+                  </div>
+
+                  <div className="visitor-card-details">
                     <div>
-                      <h4 style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main)' }}>{req.visitorName}</h4>
-                      <p style={{ fontSize: 11, color: '#3282f6', fontWeight: 600 }}>
-                        {req.company} • {req.category}
-                      </p>
+                      <Clock size={15} aria-hidden="true" />
+                      <span><small>Entry time</small><strong>{req.entryTime}</strong><em>{req.date}</em></span>
+                    </div>
+                    <div>
+                      <Car size={15} aria-hidden="true" />
+                      <span><small>Vehicle</small><strong>{req.vehicleNo || 'Not provided'}</strong></span>
                     </div>
                   </div>
-                  {req.status === 'APPROVED' && <span className="badge badge-approved">APPROVED</span>}
-                  {req.status === 'LEAVE_AT_GATE' && <span className="badge badge-leave">AT GATE</span>}
-                  {req.status === 'DENIED' && <span className="badge badge-denied">DENIED</span>}
-                  {req.status === 'CHECKED_OUT' && <span className="badge badge-checkout">EXITED</span>}
-                  {req.status === 'PENDING' && <span className="badge badge-pending">PENDING</span>}
-                </div>
 
-                <div style={{ fontSize: 11, color: 'var(--text-muted)', display: 'flex', justifyContent: 'space-between', marginTop: 4 }}>
-                  <span>{req.entryTime} ({req.date})</span>
-                  <span>Vehicle: {req.vehicleNo}</span>
-                </div>
-
-                {req.notes && (
-                  <p style={{ fontSize: 10, color: '#9ca3af', marginTop: 6, fontStyle: 'italic' }}>
-                    📝 {req.notes}
-                  </p>
-                )}
-              </div>
-            ))
+                  {req.notes && <p className="visitor-card-note">{req.notes}</p>}
+                </article>
+              ))}
+            </div>
           )}
         </div>
       )}
@@ -531,6 +533,7 @@ export default function OwnerView({
 
           {/* List of Active Pre-Approved Passes */}
           <h4 style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-main)', margin: '14px 0 8px 0' }}>Active Gate Passes</h4>
+          <div className="owner-record-grid">
           {flatPasses.map(p => (
             <div key={p.id} className="glass-card" style={{ padding: '10px 14px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -552,11 +555,12 @@ export default function OwnerView({
               </div>
             </div>
           ))}
+          </div>
         </div>
       )}
 
       {activeTab === 'services' && (
-        <div>
+        <div className="owner-service-layout">
           <form onSubmit={submitServiceRequest} className="glass-card">
             <h3 style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-main)', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 7 }}>
               <Wrench size={16} color="#3282f6" /> Request apartment service
@@ -606,7 +610,9 @@ export default function OwnerView({
             <h3 style={{ color: 'var(--text-main)', fontSize: 13, marginBottom: 8 }}>Service history ({flatServiceRequests.length})</h3>
             {flatServiceRequests.length === 0 ? (
               <p style={{ color: 'var(--text-muted)', fontSize: 11 }}>No service requests for this flat.</p>
-            ) : flatServiceRequests.map(request => (
+            ) : (
+              <div className="owner-record-grid">
+              {flatServiceRequests.map(request => (
               <article key={request.id} style={{ padding: '10px 0', borderTop: '1px solid var(--border-color)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8 }}>
                   <strong style={{ color: 'var(--text-main)', fontSize: 12 }}>{request.category}</strong>
@@ -616,7 +622,9 @@ export default function OwnerView({
                 {request.photo && <img src={request.photo} alt={`${request.category} issue`} style={{ width: 72, height: 72, objectFit: 'cover', borderRadius: 6, marginTop: 8 }} />}
                 <span style={{ color: '#8b98a8', fontSize: 9 }}>{request.priority} priority · {request.createdAt}</span>
               </article>
-            ))}
+              ))}
+              </div>
+            )}
           </section>
         </div>
       )}
@@ -630,7 +638,8 @@ export default function OwnerView({
           </h3>
 
           {selectedFlat.vehicles && selectedFlat.vehicles.length > 0 ? (
-            selectedFlat.vehicles.map((v, idx) => (
+            <div className="owner-record-grid">
+            {selectedFlat.vehicles.map((v, idx) => (
               <div key={idx} style={{
                 padding: '10px 12px',
                 borderRadius: 10,
@@ -657,7 +666,8 @@ export default function OwnerView({
                 </div>
                 <span className={`badge ${v.status === 'PENDING_APPROVAL' ? 'badge-pending' : 'badge-approved'}`} style={{ fontSize: 9 }}>{v.status === 'PENDING_APPROVAL' ? 'PENDING APPROVAL' : v.slot}</span>
               </div>
-            ))
+            ))}
+            </div>
           ) : (
             <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>No vehicles registered yet for this flat.</p>
           )}
@@ -709,6 +719,7 @@ export default function OwnerView({
       {activeTab === 'notices' && (
         <div>
           <h3 style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main)', marginBottom: 10 }}>Society Announcements</h3>
+          <div className="owner-record-grid">
           {notices.map(n => (
             <div key={n.id} className="glass-card">
               <span className="chip" style={{ background: 'rgba(50,130,246,0.1)', color: '#2563eb', marginBottom: 6 }}>
@@ -722,6 +733,7 @@ export default function OwnerView({
               </div>
             </div>
           ))}
+          </div>
         </div>
       )}
 
